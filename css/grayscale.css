@@ -120,6 +120,11 @@ a:focus {
     }
 }
 
+/* CHANGED */
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
+
 .intro {
     display: table;
     width: 100%;
@@ -137,7 +142,7 @@ a:focus {
 
 .intro-body {
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: bottom; /* CHANGED */
 }
 
 .brand-heading {
