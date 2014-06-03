@@ -1,0 +1,27 @@
+{
+  "name": "travelapp_web",
+  "version": "0.0.1",
+  "homepage": "http://www.triprt.com",
+  "description": "A travel app",
+  "main": "index.html",
+  "keywords": [
+    "travel",
+    "trip",
+    "route"
+  ],
+  "authors": [
+    "Jesse"
+  ],
+  "license": "Proprietary",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery.stellar": "~0.6.2"
+  }
+}
