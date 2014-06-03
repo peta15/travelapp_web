@@ -17,3 +17,7 @@ $(function() {
         event.preventDefault();
     });
 });
+
+$(function() {
+    $.stellar();
+});
