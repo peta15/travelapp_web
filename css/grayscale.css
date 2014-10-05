@@ -101,10 +101,6 @@ a:focus {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 }
-/* CHANGED */
-.carousel-inner > .item > img {
-  margin: 0 auto;
-}
 .intro {
   display: table;
   width: 100%;
