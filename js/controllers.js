@@ -51,13 +51,13 @@ angular.module('app.controllers', [])
     }])
 
     .controller('HomeCtrl', ['$scope', 'globals', function ($scope, globals) {
-
+        $scope.title = "Hop a Path"
  
 
     }])
 
     .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', function ($scope, $log, Post, User, globals) {
-
+        $scope.title = "Hop a Path > Aaron Path"
 
 
     }]);

@@ -14,7 +14,7 @@ angular.module('app', ['ui.router', 'app.controllers', 'app.services', 'app.dire
     }())
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         // fallback route
-        $urlRouterProvider.otherwise('/home');        
+        $urlRouterProvider.otherwise('/');
 
         $stateProvider
             .state('home', {
