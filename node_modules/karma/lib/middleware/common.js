@@ -26,9 +26,30 @@ var serve404 = function(response, path) {
 
 
 var createServeFile = function(fs, directory) {
-  return function(filepath, response, transform) {
+  var cache = Object.create(null);
+
+  return function(filepath, response, transform, content) {
+    var responseData;
+
     if (directory) {
       filepath = directory + filepath;
+    }
+
+    if (!content && cache[filepath]) {
+      content = cache[filepath];
+    }
+
+    // serve from cache
+    if (content) {
+      response.setHeader('Content-Type', mime.lookup(filepath, 'text/plain'));
+
+      // call custom transform fn to transform the data
+      responseData = transform && transform(content) || content;
+
+      response.writeHead(200);
+
+      log.debug('serving (cached): ' + filepath);
+      return response.end(responseData);
     }
 
     return fs.readFile(filepath, function(error, data) {
@@ -36,10 +57,12 @@ var createServeFile = function(fs, directory) {
         return serve404(response, filepath);
       }
 
+      cache[filepath] = data.toString();
+
       response.setHeader('Content-Type', mime.lookup(filepath, 'text/plain'));
 
       // call custom transform fn to transform the data
-      var responseData = transform && transform(data.toString()) || data;
+      responseData = transform && transform(data.toString()) || data;
 
       response.writeHead(200);
 
