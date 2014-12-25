@@ -1,6 +1,6 @@
 angular.module('app.controllers', [])
 
-    .controller('AppCtrl', function ($scope) {
+    .controller('AppCtrl', ['$scope', function ($scope) {
 
         $scope.timeSince = function(date) {
             if (typeof date !== 'object') {
@@ -48,16 +48,16 @@ angular.module('app.controllers', [])
             return interval + ' ' + intervalType + ' ago';
         };
 
-    })
+    }])
 
-    .controller('HomeCtrl', function ($scope, globals) {
+    .controller('HomeCtrl', ['$scope', 'globals', function ($scope, globals) {
 
  
 
-    })
+    }])
 
-    .controller('PathCtrl', function ($scope, $log, Post, User, globals) {
+    .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', function ($scope, $log, Post, User, globals) {
 
 
 
-    });
+    }]);

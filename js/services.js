@@ -1,14 +1,14 @@
 angular.module('app.services', [])
 
-.factory('User', function(globals) {
+.factory('User', ['globals', function(globals) {
 
   return {
     getById: function() {
       return null;
     }
   }
-})
-.factory('Post', function(User, globals, $cachedResource) {
+}])
+.factory('Post', ['User', 'globals', function(User, globals) {
 
   return {
     all: function() {
@@ -16,4 +16,4 @@ angular.module('app.services', [])
     }
   }
 
-});
+}]);
