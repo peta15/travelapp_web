@@ -1,6 +1,6 @@
-angular.module('travelapp.controllers', [])
+angular.module('app.controllers', [])
 
-    .controller('AppCtrl', function ($scope, $state, $ionicScrollDelegate, $ionicLoading, $window) {
+    .controller('AppCtrl', function ($scope) {
 
         $scope.timeSince = function(date) {
             if (typeof date !== 'object') {

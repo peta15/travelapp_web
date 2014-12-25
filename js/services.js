@@ -1,4 +1,4 @@
-angular.module('travelapp.services', [])
+angular.module('app.services', [])
 
 .factory('User', function(globals) {
 
