@@ -222,7 +222,7 @@ img.hero {
 @media (min-width: 767px) {
   .why-section {
     padding: 30px 0;
-    background-color: white;
+    background-color: #ffffff;
     color: black;
   }
   .why-section ul {
@@ -237,7 +237,12 @@ img.hero {
   }
   .our-story-section {
     padding: 30px 0;
-    background-color: white;
+    background-color: #ffffff;
+    color: black;
+  }
+  .path {
+    padding: 30px 0;
+    background-color: #ffffff;
     color: black;
   }
 }
