@@ -51,13 +51,20 @@ angular.module('app.controllers', [])
     }])
 
     .controller('HomeCtrl', ['$scope', 'globals', function ($scope, globals) {
-        $scope.title = "Hop a Path"
  
 
     }])
 
     .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', function ($scope, $log, Post, User, globals) {
-        $scope.title = "Hop a Path > Aaron Path"
-
+        var user = User.getById('1A0W16VMUH').then(function(user) {
+            $scope.user = user;
+            Post.listByUser(user).then(function(posts) {
+                $scope.posts = posts;
+            }, function(error) {
+                // TODO handle posts error
+            });
+        }, function(error) {
+            // TODO handle user error
+        });
 
     }]);

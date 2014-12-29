@@ -1,17 +1,22 @@
 angular.module('app', ['ui.router', 'app.controllers', 'app.services', 'app.directives'])
 
-    // .run(['$rootScope', '$window', '$logProvider', function ($rootScope, $window, $logProvider) {
+    .run(['$rootScope', '$window', 'User', function ($rootScope, $window, User) {
 
-    //     // TODO set parse api key here
-    //     $logProvider.debugEnabled(true);
+        // TODO set parse api key here
+        Parse.initialize('dj2Rcjb9bvAmYWJvKLlDpj1WasLwn5mcum3yktCP','viset42LCn1piYJEFblISpZLmi2egYJZvy0AskEi');
 
-    // }])
+        $rootScope.sessionUser = User.current();
+
+    }])
     .value('globals', function(){
         var globals = {
             // TODO add any globals here and reference with 'globals'
         };
         return globals;
     }())
+    .config(['$logProvider', function ($logProvider) {
+        $logProvider.debugEnabled(true);
+    }])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         // fallback route
         $urlRouterProvider.otherwise('/');

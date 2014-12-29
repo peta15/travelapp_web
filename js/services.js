@@ -1,19 +1,113 @@
 angular.module('app.services', [])
 
-.factory('User', ['globals', function(globals) {
+.factory('User', ['globals', '$q', function(globals, $q) {
 
-  return {
-    getById: function() {
-      return null;
-    }
-  }
+  var User = Parse.User.extend("User", {
+      // Instance methods
+    }, {
+      // Class methods
+      getById: function(id) {
+        var defer = $q.defer();
+ 
+        var query = new Parse.Query(this);
+        query.get(id, {
+          success : function(user) {
+            defer.resolve(user);
+          },
+          error : function(error) {
+            defer.reject(error);
+          }
+        });
+ 
+        return defer.promise;
+      }
+    });
+
+    // Name property
+    Object.defineProperty(User.prototype, "name", {
+      get: function() {
+        return this.get("name");
+      },
+      set: function(aValue) {
+        this.set("name", aValue);
+      }
+    });
+ 
+    // fbProfileImage100x75 property
+    Object.defineProperty(User.prototype, "fbProfileImage100x75", {
+      get: function() {
+        return this.get("fbProfileImage100x75");
+      },
+      set: function(aValue) {
+        this.set("fbProfileImage100x75", aValue);
+      }
+    });
+ 
+    return User;
 }])
-.factory('Post', ['User', 'globals', function(User, globals) {
+.factory('Post', ['User', 'globals', '$q', function(User, globals, $q) {
 
-  return {
-    all: function() {
-      return null;
-    }
-  }
+  var Post = Parse.Object.extend("Post", {
+      // Instance methods
+    }, {
+      // Class methods
+      listByUser : function(user) {
+        var defer = $q.defer();
+ 
+        var query = new Parse.Query(this);
+        query.equalTo("author", user);
+        query.find({
+          success : function(posts) {
+            defer.resolve(posts);
+          },
+          error : function(error) {
+            defer.reject(error);
+          }
+        });
+ 
+        return defer.promise;
+      }
+    });
+ 
+    // author, text, rating, locationLatitude, locationLongitude, locationName, image, userCreatedAt, userUpdatedAt
+
+    // Text property
+    Object.defineProperty(Post.prototype, "text", {
+      get: function() {
+        return this.get("text");
+      },
+      set: function(aValue) {
+        this.set("text", aValue);
+      }
+    });
+
+    // Rating property
+    Object.defineProperty(Post.prototype, "rating", {
+      get: function() {
+        return this.get("rating");
+      },
+      set: function(aValue) {
+        this.set("rating", aValue);
+      }
+    });
+
+    // LocationName property
+    Object.defineProperty(Post.prototype, "locationName", {
+      get: function() {
+        return this.get("locationName");
+      },
+      set: function(aValue) {
+        this.set("locationName", aValue);
+      }
+    });
+ 
+    // Image property
+    Object.defineProperty(Post.prototype, "image", {
+      get: function() {
+        return this.get("image").url();
+      }
+    });
+
+    return Post;
 
 }]);
