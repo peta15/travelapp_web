@@ -24,13 +24,17 @@ angular.module('app', ['ui.router', 'app.controllers', 'app.services', 'app.dire
         $stateProvider
             .state('home', {
                 url: "/",
-                templateUrl: "templates/home.html",
-                controller: "HomeCtrl"
+                views: {
+                  "body": { templateUrl: "templates/home_body.html", controller: "HomeCtrl" },
+                  "nav": { templateUrl: "templates/nav.html", controller: "AppCtrl" }
+                }
             })
             .state('path', {
                 url: "/path/aaron", // TODO change to :pathId
-                templateUrl: "templates/path.html",
-                controller: "PathCtrl"
+                views: {
+                  "body": { templateUrl: "templates/path_body.html", controller: "PathCtrl" },
+                  "nav": { templateUrl: "templates/nav.html", controller: "AppCtrl" }
+                }
             });
     }]);
     // .config(['$httpProvider', '$log', function ($httpProvider, $log) {
