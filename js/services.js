@@ -36,10 +36,7 @@ angular.module('app.services', [])
     // fbProfileImage100x75 property
     Object.defineProperty(User.prototype, "fbProfileImage100x75", {
       get: function() {
-        return this.get("fbProfileImage100x75");
-      },
-      set: function(aValue) {
-        this.set("fbProfileImage100x75", aValue);
+        return this.get("fbProfileImage100x75").url();
       }
     });
  
@@ -105,6 +102,16 @@ angular.module('app.services', [])
     Object.defineProperty(Post.prototype, "image", {
       get: function() {
         return this.get("image").url();
+      }
+    });
+
+    Object.defineProperty(Post.prototype, "hasImage", {
+      get: function() {
+        if (this.get("image")) {
+          return true;
+        } else {
+          return false;
+        }
       }
     });
 
