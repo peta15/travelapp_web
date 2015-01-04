@@ -55,8 +55,8 @@ angular.module('app.controllers', [])
 
     }])
 
-    .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', function ($scope, $log, Post, User, globals) {
-        var user = User.getById('1A0W16VMUH').then(function(user) {
+    .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', function ($scope, $log, Post, User, globals, $stateParams) {
+        var user = User.getById($stateParams.userId).then(function(user) {
             $scope.user = user;
             Post.listByUser(user).then(function(posts) {
                 $scope.posts = posts;

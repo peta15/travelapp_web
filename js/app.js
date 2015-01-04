@@ -32,8 +32,8 @@ angular.module('app', ['ui.router', 'app.controllers', 'app.services', 'app.dire
                 templateUrl: "templates/home.html",
                 controller: "HomeCtrl"  
             })
-            .state('app.path', {
-                url: "/user/aaron", // TODO change to :pathId
+            .state('app.user', {
+                url: "/user/:userId",
                 templateUrl: "templates/path.html",
                 controller: "PathCtrl"
             });
