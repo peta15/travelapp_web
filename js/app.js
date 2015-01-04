@@ -22,19 +22,20 @@ angular.module('app', ['ui.router', 'app.controllers', 'app.services', 'app.dire
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
-            .state('home', {
-                url: "/",
-                views: {
-                  "body": { templateUrl: "templates/home_body.html", controller: "HomeCtrl" },
-                  "nav": { templateUrl: "templates/nav.html", controller: "AppCtrl" }
-                }
+            .state('app', {
+                abstract: true,
+                template: '<ui-view/>',
+                controller: "AppCtrl"
             })
-            .state('path', {
-                url: "/path/aaron", // TODO change to :pathId
-                views: {
-                  "body": { templateUrl: "templates/path_body.html", controller: "PathCtrl" },
-                  "nav": { templateUrl: "templates/nav.html", controller: "AppCtrl" }
-                }
+            .state('app.home', {
+                url: "/",
+                templateUrl: "templates/home.html",
+                controller: "HomeCtrl"  
+            })
+            .state('app.path', {
+                url: "/user/aaron", // TODO change to :pathId
+                templateUrl: "templates/path.html",
+                controller: "PathCtrl"
             });
     }]);
     // .config(['$httpProvider', '$log', function ($httpProvider, $log) {

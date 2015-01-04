@@ -53,6 +53,7 @@ angular.module('app.services', [])
  
         var query = new Parse.Query(this);
         query.equalTo("author", user);
+        query.descending("userCreatedAt");
         query.find({
           success : function(posts) {
             defer.resolve(posts);
@@ -102,6 +103,13 @@ angular.module('app.services', [])
     Object.defineProperty(Post.prototype, "image640", {
       get: function() {
         return this.get("image640").url();
+      }
+    });
+
+    // UserCreatedAt property
+    Object.defineProperty(Post.prototype, "userCreatedAt", {
+      get: function() {
+        return this.get("userCreatedAt");
       }
     });
 
