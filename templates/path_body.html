@@ -15,7 +15,7 @@
           <rating ng-show="post.rating > 0" rating-value="post.rating" max="5" readonly="true"></rating>
         </div>
         <div class="panel-body">
-          <img ng-if="post.hasImage" src="{{post.image}}" alt="post image" class="img-rounded" width="640" height="480">
+          <img ng-if="post.hasImage640" src="{{post.image640}}" alt="post image" class="img-rounded">
           {{post.text}}
         </div>
       </div>

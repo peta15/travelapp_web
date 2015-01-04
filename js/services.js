@@ -99,15 +99,15 @@ angular.module('app.services', [])
     });
  
     // Image property
-    Object.defineProperty(Post.prototype, "image", {
+    Object.defineProperty(Post.prototype, "image640", {
       get: function() {
-        return this.get("image").url();
+        return this.get("image640").url();
       }
     });
 
-    Object.defineProperty(Post.prototype, "hasImage", {
+    Object.defineProperty(Post.prototype, "hasImage640", {
       get: function() {
-        if (this.get("image")) {
+        if (this.get("image640")) {
           return true;
         } else {
           return false;
