@@ -55,7 +55,7 @@ angular.module('app.controllers', [])
 
     }])
 
-    .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', function ($scope, $log, Post, User, globals, $stateParams) {
+    .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', function ($scope, $log, Post, User, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger) {
         var user = User.getById($stateParams.userId).then(function(user) {
             $scope.user = user;
             Post.listByUser(user).then(function(posts) {
@@ -67,6 +67,18 @@ angular.module('app.controllers', [])
             // TODO handle user error
         });
 
+        // google maps logic
+
+        uiGmapLogger.doLog = true;
         $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+        // Do stuff with your $scope.
+        // Note: Some of the directives require at least something to be defined originally!
+        // e.g. $scope.markers = []
+
+        // uiGmapGoogleMapApi is a promise.
+        // The "then" callback function provides the google.maps object.
+        uiGmapGoogleMapApi.then(function(maps) {
+
+        });
 
     }]);

@@ -37,6 +37,13 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'app.controllers', 'app
                 templateUrl: "templates/path.html",
                 controller: "PathCtrl"
             });
+    }])
+    .config(['uiGmapGoogleMapApiProvider', function (uiGmapGoogleMapApiProvider) {
+        uiGmapGoogleMapApiProvider.configure({
+            //    key: 'your api key',
+            v: '3.19',
+            libraries: 'weather,geometry,visualization'
+        });
     }]);
     // .config(['$httpProvider', '$log', function ($httpProvider, $log) {
     //     $httpProvider.defaults.transformRequest.push(function (data, headerGetter) {
