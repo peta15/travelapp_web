@@ -21,7 +21,7 @@
     </div>
   </div>
   <div class="row"></div>
-    <div class="col-md-8 center-block">
+    <div class="col-md-6">
       <div class="panel panel-default" ng-repeat="post in posts">
         <div class="panel-heading">
           <h3 class="panel-title">{{post.locationName}}</h3>
@@ -33,6 +33,9 @@
           {{post.text}}
         </div>
       </div>
+    </div>
+    <div class="col-md-6">
+      <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
     </div>
   </div>
 </div>

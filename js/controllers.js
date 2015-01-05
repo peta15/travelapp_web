@@ -67,4 +67,6 @@ angular.module('app.controllers', [])
             // TODO handle user error
         });
 
+        $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+
     }]);
