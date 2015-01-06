@@ -65,7 +65,8 @@ angular.module('app.controllers', [])
                     $scope.map,
                     {
                         path: lodash.chain(posts).pluck('location').compact().map(function(location) { return {latitude: location.latitude, longitude: location.longitude}; }).valueOf(),
-                        markers: lodash.chain(posts).pluck('location').compact().map(function(location) { return {id: i++, latitude: location.latitude, longitude: location.longitude}; }).valueOf() // , options: { labelContent: location.name } where locationName is not null
+                        markers: lodash.chain(posts).pluck('location').compact().map(function(location) { return {id: i++, latitude: location.latitude, longitude: location.longitude}; }).valueOf(), // , options: { labelContent: location.name } where locationName is not null
+                        show: lodash.any(posts, 'location')
                     }); 
             }, function(error) {
                 // TODO handle posts error
@@ -88,7 +89,8 @@ angular.module('app.controllers', [])
                 opacity: 1
             },
             path: [],
-            markers: []
+            markers: [],
+            show: false
         };
         // uiGmapGoogleMapApi is a promise.
         // The "then" callback function provides the google.maps object.
