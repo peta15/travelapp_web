@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'app.controllers', 'app.services', 'app.directives'])
+angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.controllers', 'app.services', 'app.directives'])
 
     .run(['$rootScope', '$window', 'User', function ($rootScope, $window, User) {
 

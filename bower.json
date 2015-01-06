@@ -32,6 +32,8 @@
     "angularjs-stellar": "*",
     "angularparse": "~0.2.0",
     "angular-bootstrap": "~0.12.0",
-    "angular-google-maps": "~2.0.12"
+    "angular-google-maps": "~2.0.12",
+    "ng-lodash": "~0.1.0",
+    "lodash": "~2.4.1"
   }
 }

@@ -35,7 +35,24 @@
       </div>
     </div>
     <div class="col-md-6">
-      <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+      <ui-gmap-google-map
+        center="map.center"
+        zoom="map.zoom">
+        <ui-gmap-polyline
+          path="map.path"
+          stroke="map.stroke"
+          clickable="false"
+          draggable="false"
+          editable="false"
+          fit="true"
+          static="true"
+          geodesic="true">
+        </ui-gmap-polylines>
+        <ui-gmap-markers
+          models="map.markers"
+          coords="'self'">
+        </ui-gmap-markers>
+      </ui-gmap-google-map>
     </div>
   </div>
 </div>

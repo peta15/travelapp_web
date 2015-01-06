@@ -55,26 +55,41 @@ angular.module('app.controllers', [])
 
     }])
 
-    .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', function ($scope, $log, Post, User, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger) {
+    .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'lodash', function ($scope, $log, Post, User, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, lodash) {
         var user = User.getById($stateParams.userId).then(function(user) {
             $scope.user = user;
             Post.listByUser(user).then(function(posts) {
                 $scope.posts = posts;
+                var i = 0;
+                angular.extend(
+                    $scope.map,
+                    {
+                        path: lodash.chain(posts).pluck('location').compact().map(function(location) { return {latitude: location.latitude, longitude: location.longitude}; }).valueOf(),
+                        markers: lodash.chain(posts).pluck('location').compact().map(function(location) { return {id: i++, latitude: location.latitude, longitude: location.longitude}; }).valueOf() // , options: { labelContent: location.name } where locationName is not null
+                    }); 
             }, function(error) {
                 // TODO handle posts error
+                $log.error(error);
             });
         }, function(error) {
             // TODO handle user error
+            $log.error(error);
         });
 
         // google maps logic
 
         uiGmapLogger.doLog = true;
-        $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-        // Do stuff with your $scope.
-        // Note: Some of the directives require at least something to be defined originally!
-        // e.g. $scope.markers = []
-
+        $scope.map = {
+            center: { latitude: 0, longitude: 0 },
+            zoom: 8,
+            stroke: {
+                color: '#FF0000',
+                weight: 3,
+                opacity: 1
+            },
+            path: [],
+            markers: []
+        };
         // uiGmapGoogleMapApi is a promise.
         // The "then" callback function provides the google.maps object.
         uiGmapGoogleMapApi.then(function(maps) {

@@ -67,7 +67,7 @@ angular.module('app.services', [])
       }
     });
  
-    // author, text, rating, locationLatitude, locationLongitude, locationName, image, userCreatedAt, userUpdatedAt
+    // author, text, rating, location, locationLongitude, locationName, image, userCreatedAt, userUpdatedAt
 
     // Text property
     Object.defineProperty(Post.prototype, "text", {
@@ -98,6 +98,17 @@ angular.module('app.services', [])
         this.set("locationName", aValue);
       }
     });
+
+    // Location property (Parse GeoPoint)
+    Object.defineProperty(Post.prototype, "location", {
+      get: function() {
+        return this.get("location");
+      },
+      set: function(aValue) {
+        this.set("location", aValue);
+      }
+    });
+ 
  
     // Image property
     Object.defineProperty(Post.prototype, "image640", {
