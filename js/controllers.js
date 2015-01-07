@@ -51,8 +51,14 @@ angular.module('app.controllers', [])
     }])
 
     .controller('HomeCtrl', ['$scope', 'globals', function ($scope, globals) {
- 
-
+        //jQuery for page scrolling feature - requires jQuery Easing plugin
+        $('.page-scroll a').bind('click', function(event) {
+            var $anchor = $(this);
+            $('html, body').stop().animate({
+                scrollTop: $($anchor.attr('href')).offset().top
+            }, 1500, 'easeInOutExpo');
+            event.preventDefault();
+        });
     }])
 
     .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'lodash', function ($scope, $log, Post, User, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, lodash) {
