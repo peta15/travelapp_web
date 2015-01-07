@@ -56,16 +56,41 @@ angular.module('app.controllers', [])
     }])
 
     .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'lodash', function ($scope, $log, Post, User, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, lodash) {
+        var i = 0;
+
+        var check_null_location = function(post) {
+            if (post.location != null) {
+                return post;
+            } else {
+                return null;
+            }
+        }
+
+        var compile_map_data = function(post) {
+            var map_data = {
+                id: i++, 
+                latitude: post.location.latitude, 
+                longitude: post.location.longitude
+            };
+            if (post.locationName != null) {
+                map_data['options'] = {
+                    labelContent: post.locationName,
+                    labelAnchor: "22 0", 
+                    labelClass: "marker-labels"
+                };
+            }
+            return map_data;
+        }
+
         var user = User.getById($stateParams.userId).then(function(user) {
             $scope.user = user;
             Post.listByUser(user).then(function(posts) {
                 $scope.posts = posts;
-                var i = 0;
                 angular.extend(
                     $scope.map,
                     {
                         path: lodash.chain(posts).pluck('location').compact().map(function(location) { return {latitude: location.latitude, longitude: location.longitude}; }).valueOf(),
-                        markers: lodash.chain(posts).pluck('location').compact().map(function(location) { return {id: i++, latitude: location.latitude, longitude: location.longitude}; }).valueOf(), // , options: { labelContent: location.name } where locationName is not null
+                        markers: lodash.chain(posts).map(check_null_location).compact().map(compile_map_data).valueOf(),
                         show: lodash.any(posts, 'location')
                     }); 
             }, function(error) {

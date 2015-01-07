@@ -333,4 +333,17 @@ ul.rating {
   height: 400px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  margin: 20px;
+}
+.marker-labels {
+  color: blue;
+  background-color: white;
+  font-family: "Lucida Grande", "Arial", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  white-space: nowrap;
+  padding: 2px;
 }
