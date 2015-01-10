@@ -195,7 +195,7 @@ img.hero {
   color: black;
 }
 .why-section {
-  padding: 40px;
+  padding: 60px 40px 40px 40px;
   background-color: #ffffff;
 }
 .why-section li:before {
@@ -207,6 +207,7 @@ img.hero {
 }
 .why-section ul {
   padding-left: 20px;
+  padding-bottom: 10px;
   text-indent: 2px;
   list-style: none;
   list-style-position: outside;
