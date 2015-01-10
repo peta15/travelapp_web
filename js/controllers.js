@@ -59,9 +59,27 @@ angular.module('app.controllers', [])
             }, 1500, 'easeInOutExpo');
             event.preventDefault();
         });
+
+        //jQuery to collapse the navbar on scroll
+        $(window).scroll(function() {
+            if ($(".navbar-home").offset().top > 50) {
+                $(".navbar-fixed-top").addClass("top-nav-collapse");
+            } else {
+                $(".navbar-fixed-top").removeClass("top-nav-collapse");
+            }
+        });
+
+        $.backstretch("/img/guatemala.jpg");
+
     }])
 
     .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'lodash', function ($scope, $log, Post, User, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, lodash) {
+        BACKGROUNDS = ["/img/guatemala.jpg", "/img/intro-bg.jpg"];
+        // Duration is the amount of time in between slides,
+        // and fade is value that determines how quickly the next image will fade in
+        var bg = BACKGROUNDS[Math.floor(Math.random()*BACKGROUNDS.length)]; // choose a random background image
+        $.backstretch(bg); // can rotate every few seconds - see http://srobbin.com/jquery-plugins/backstretch/
+
         var i = 0;
 
         var check_null_location = function(post) {
