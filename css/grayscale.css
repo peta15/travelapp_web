@@ -147,7 +147,12 @@ a:focus {
   }
 }
 img.hero {
+  width: 100%;
+  height: auto;
+}
+@media (min-width: 767px) {
   margin: 50px;
+  width: auto;
 }
 @-webkit-keyframes pulse {
   0 {
