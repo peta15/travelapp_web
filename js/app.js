@@ -17,7 +17,10 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
     .config(['$logProvider', function ($logProvider) {
         $logProvider.debugEnabled(true);
     }])
-    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
+        // use urls without # in them - ie /user/xyz instead of /#/user/xyz
+        $locationProvider.html5Mode(true);
+        
         // fallback route
         $urlRouterProvider.otherwise('/');
 
