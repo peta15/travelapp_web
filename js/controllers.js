@@ -113,7 +113,7 @@ angular.module('app.controllers', [])
                 angular.extend(
                     $scope.map,
                     {
-                        path: lodash.chain(posts).pluck('location').compact().map(function(location) { return {latitude: location.latitude, longitude: location.longitude}; }).valueOf(),
+                        path: lodash.chain(posts).pluck('location').filter(function(location){ return location != null && location.latitude != 0.0 && location.longitude != 0.0 }).map(function(location) { return {latitude: location.latitude, longitude: location.longitude}; }).valueOf(),
                         markers: lodash.chain(posts).map(check_null_location).compact().map(compile_map_data).valueOf(),
                         show: lodash.any(posts, 'location')
                     }); 
