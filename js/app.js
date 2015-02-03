@@ -19,7 +19,14 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
     }])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         // fallback route
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider
+            .when('/from/fb/:userId/:idType/:id', ['$match', '$stateParams', function ($match, $stateParams) {
+                // TODO redirect to a path page centered on the post (and/or post highlighted in feed and map)
+                // where :idType = "post" and :id is the postId of the post
+                // if no post with postId found then redirect to user page
+                return "/user/" + $match.userId;
+            }])
+            .otherwise('/');
 
         $stateProvider
             .state('app', {
