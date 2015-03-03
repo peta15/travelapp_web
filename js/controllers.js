@@ -1,6 +1,6 @@
 angular.module('app.controllers', [])
 
-    .controller('AppCtrl', ['$scope', function ($scope) {
+    .controller('AppCtrl', ['$scope', 'User', '$rootScope', '$log', function ($scope, User, $rootScope, $log) {
 
         $scope.timeSince = function(date) {
             if (typeof date !== 'object') {
@@ -50,8 +50,8 @@ angular.module('app.controllers', [])
 
     }])
 
-    .controller('HomeCtrl', ['$scope', 'globals', function ($scope, globals) {
-        //jQuery for page scrolling feature - requires jQuery Easing plugin
+    .controller('HomeCtrl', ['$scope', 'globals', 'User', function ($scope, globals, User) {
+        //jQuery for page scrolling feature - requires jQuery Easing plugin - TODO maybe replace with ngScrollTo
         $('.page-scroll a').bind('click', function(event) {
             var $anchor = $(this);
             $('html, body').stop().animate({

@@ -1,12 +1,32 @@
 angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.controllers', 'app.services', 'app.directives'])
 
-    .run(['$rootScope', '$window', 'User', function ($rootScope, $window, User) {
+    .run(['$rootScope', '$window', 'User', '$log', function ($rootScope, $window, User, $log) {
 
         // TODO set parse api key here
         Parse.initialize('dj2Rcjb9bvAmYWJvKLlDpj1WasLwn5mcum3yktCP','viset42LCn1piYJEFblISpZLmi2egYJZvy0AskEi');
 
-        $rootScope.sessionUser = User.current();
+        $rootScope.User = User;
 
+        window.fbAsyncInit = function() {
+            Parse.FacebookUtils.init({ // this line replaces FB.init({
+              appId      : '1494625380826955', // Facebook App ID
+              status     : true,  // check Facebook Login status
+              cookie     : true,  // enable cookies to allow Parse to access the session
+              xfbml      : true,  // initialize Facebook social plugins on the page
+              version    : 'v2.2' // point to the latest Facebook Graph API version
+            });
+
+            // update current user with FB data if logged in
+            User.enrichCurrentUser();
+        };
+        // retrieve Facebook sdk
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
     }])
     .value('globals', function(){
         var globals = {

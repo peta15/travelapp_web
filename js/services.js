@@ -1,6 +1,6 @@
 angular.module('app.services', [])
 
-.factory('User', ['globals', '$q', function(globals, $q) {
+.factory('User', ['globals', '$q', '$log', '$rootScope', function(globals, $q, $log, $rootScope) {
 
   var User = Parse.User.extend("User", {
       // Instance methods
@@ -20,6 +20,72 @@ angular.module('app.services', [])
         });
  
         return defer.promise;
+      },
+
+      enrichCurrentUser: function() {
+        var self = User;
+        FB.getLoginStatus(function(loginResponse) {
+          $log.debug('loginResponse: ');
+          $log.debug(loginResponse);
+          $log.debug('current user: ');
+          $log.debug(self.current());
+          if (loginResponse.status === 'connected' && self.current() != null) {
+              FB.api('/me', function(response) {
+                $log.debug(response);
+                $log.debug('Updating user ' + response.name + ' with FB profile data.');
+                self._updateCurrentUser(self.current(), response);
+                self.current().save(null, {
+                  success: function(user) {
+                    $log.debug("Found and enriched current user");
+                    // $rootScope.currentUser = user; // replaced with current user observer
+                    $rootScope.$apply();
+                  }, error: function(user, error) {
+                    alert("Error: " + error.code + " " + error.message);
+                  }
+                });
+              });
+            } else {
+              $log.debug('not connected to FB or no current user so logging out to ensure parse user and FB are in sync');
+              self.logOut();
+            }
+        });
+      },
+
+      fbLogin: function() {
+        var self = User;
+        $log.debug('calling fb login');
+        Parse.FacebookUtils.logIn("publish_actions", {
+          success: function(user) {
+            if (!user.existed()) {
+              $log.debug("User signed up and logged in through Facebook");
+            } else {
+              $log.debug("User logged in through Facebook");
+            }
+            self.enrichCurrentUser(self); // TODO should we only do this upon signup or every time in case we need to update data?
+          },
+          error: function(user, error) {
+            $log.debug("User cancelled the Facebook login or did not fully authorize.");
+          }
+        });
+      },
+
+      // helper for setCurrentUser
+      _updateCurrentUser: function(currentUser, response) {
+        currentUser.set("name", response.name);
+        currentUser.set("username", response.email || response.name); // TODO change to string like v554iKo7ey46TPGaUxzjCSdOP
+        currentUser.set("password", "temp_" + Math.random()); // TODO change to string like v554iKo7ey46TPGaUxzjCSdOP
+        currentUser.set("email", response.email);
+        currentUser.set("fbId", response.id);
+        currentUser.set("firstName", response.first_name);
+        currentUser.set("lastName", response.last_name);
+        currentUser.set("fbUpdatedAt", new Date());
+        $log.debug("setting user info from facebook with" +
+            " name: " + response.name +
+            " email: " + response.email +
+            " fbId: " + response.id +
+            " firstName: " + response.first_name +
+            " lastName: " + response.last_name);
+        return currentUser;
       }
     });
 
