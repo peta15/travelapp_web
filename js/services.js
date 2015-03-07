@@ -4,6 +4,11 @@ angular.module('app.services', [])
 
   var User = Parse.User.extend("User", {
       // Instance methods
+
+      fbProfileImage: function(type) {
+        // type: square,small,normal,large
+        return 'https://graph.facebook.com/' + this.fbId + '/picture?type='+type;
+      }
     }, {
       // Class methods
       getById: function(id) {
@@ -89,7 +94,6 @@ angular.module('app.services', [])
       }
     });
 
-    // Name property
     Object.defineProperty(User.prototype, "name", {
       get: function() {
         return this.get("name");
@@ -98,14 +102,40 @@ angular.module('app.services', [])
         this.set("name", aValue);
       }
     });
- 
-    // fbProfileImage100x75 property
-    Object.defineProperty(User.prototype, "fbProfileImage100x75", {
+
+    Object.defineProperty(User.prototype, "firstName", {
       get: function() {
-        return this.get("fbProfileImage100x75").url();
+        return this.get("firstName");
+      },
+      set: function(aValue) {
+        this.set("firstName", aValue);
       }
     });
- 
+
+    Object.defineProperty(User.prototype, "lastName", {
+      get: function() {
+        return this.get("lastName");
+      },
+      set: function(aValue) {
+        this.set("lastName", aValue);
+      }
+    });
+
+    Object.defineProperty(User.prototype, "fbId", {
+      get: function() {
+        return this.get("fbId");
+      },
+      set: function(aValue) {
+        this.set("fbId", aValue);
+      }
+    });
+
+    Object.defineProperty(User.prototype, "fbUpdatedAt", {
+      get: function() {
+        return this.get("fbUpdatedAt");
+      }
+    });
+
     return User;
 }])
 .factory('Post', ['User', 'globals', '$q', function(User, globals, $q) {
@@ -116,7 +146,7 @@ angular.module('app.services', [])
       // Class methods
       listByUser : function(user) {
         var defer = $q.defer();
- 
+
         var query = new Parse.Query(this);
         query.equalTo("author", user);
         query.descending("userCreatedAt");
@@ -128,14 +158,11 @@ angular.module('app.services', [])
             defer.reject(error);
           }
         });
- 
+
         return defer.promise;
       }
     });
- 
-    // author, text, rating, location, locationLongitude, locationName, image, userCreatedAt, userUpdatedAt
 
-    // Text property
     Object.defineProperty(Post.prototype, "text", {
       get: function() {
         return this.get("text");
@@ -145,7 +172,6 @@ angular.module('app.services', [])
       }
     });
 
-    // Rating property
     Object.defineProperty(Post.prototype, "rating", {
       get: function() {
         return this.get("rating");
@@ -155,7 +181,6 @@ angular.module('app.services', [])
       }
     });
 
-    // LocationName property
     Object.defineProperty(Post.prototype, "locationName", {
       get: function() {
         return this.get("locationName");
@@ -174,16 +199,13 @@ angular.module('app.services', [])
         this.set("location", aValue);
       }
     });
- 
- 
-    // Image property
+
     Object.defineProperty(Post.prototype, "image640", {
       get: function() {
         return this.get("image640").url();
       }
     });
 
-    // UserCreatedAt property
     Object.defineProperty(Post.prototype, "userCreatedAt", {
       get: function() {
         return this.get("userCreatedAt");
