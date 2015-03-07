@@ -23,12 +23,15 @@
                     <li class="page-scroll">
                         <a href="#our-story">Our Story</a>
                     </li>
-                    <li>
+                    <li ng-hide="User.current()">
                         <a ui-sref="app.user({userId: 'i9RYC3rKAb'})">Joe's Path</a>
+                    </li>
+                    <li ng-show="User.current()">
+                        <a ui-sref="app.user({userId: User.current().id})">My Path</a>
                     </li>
                     <li>
                         <a ng-href="#" ng-hide="User.current()" class="btn btn-block btn-social btn-facebook" ng-click="User.fbLogin()"><i class="fa fa-facebook"></i> Sign in</button>
-                        <a ng-show="User.current()" ng-href="#" ng-click="User.logOut()">{{User.current().name}} > Sign Out</a>
+                        <a ng-show="User.current()" ng-href="#" ng-click="User.logOut()">Sign Out</a>
                     </li>
                 </ul>
             </div>
