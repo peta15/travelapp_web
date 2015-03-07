@@ -106,6 +106,8 @@ angular.module('app.controllers', [])
             return map_data;
         }
 
+        var newPostGoogleMap = null;
+
         var user = User.getById($stateParams.userId).then(function(user) {
             $scope.user = user;
             Post.listByUser(user).then(function(posts) {
@@ -116,10 +118,15 @@ angular.module('app.controllers', [])
                         path: lodash.chain(posts).pluck('location').filter(function(location){ return location != null && location.latitude != 0.0 && location.longitude != 0.0 }).map(function(location) { return {latitude: location.latitude, longitude: location.longitude}; }).valueOf(),
                         markers: lodash.chain(posts).map(check_null_location).compact().map(compile_map_data).valueOf(),
                         show: lodash.any(posts, 'location')
-                    }); 
+                    });
             }, function(error) {
                 // TODO handle posts error
                 $log.error(error);
+            });
+            // uiGmapGoogleMapApi is a promise.
+            // The "then" callback function provides the google.maps object.
+            uiGmapGoogleMapApi.then(function(maps) {
+              setTimeout(function(){ $scope.newPostMap.show=true; $scope.$apply(); }, 1);
             });
         }, function(error) {
             // TODO handle user error
@@ -141,10 +148,40 @@ angular.module('app.controllers', [])
             markers: [],
             show: false
         };
-        // uiGmapGoogleMapApi is a promise.
-        // The "then" callback function provides the google.maps object.
-        uiGmapGoogleMapApi.then(function(maps) {
 
-        });
+        //
+        // newPost
+        //
+
+        $scope.newPost = {};
+
+        $scope.newPostMap = {
+          show: false,
+          center: {
+            latitude: 0,
+            longitude: 0
+          },
+          zoom: 4,
+          marker: {
+            id: 0,
+            coords: {
+              latitude: 0,
+              longitude: 0
+            },
+            options: {}
+          },
+          searchBox: {
+            events: {
+              places_changed: function (searchBox) {
+
+              },
+              bounds_changed: function () {
+                var bounds = map.getBounds();
+                searchBox.setBounds(bounds);
+              }
+            },
+            options: {}
+          }
+        }
 
     }]);

@@ -69,7 +69,7 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
         uiGmapGoogleMapApiProvider.configure({
             //    key: 'your api key',
             v: '3.19',
-            libraries: 'weather,geometry,visualization'
+            libraries: 'weather,geometry,visualization,places'
         });
     }]);
     // .config(['$httpProvider', '$log', function ($httpProvider, $log) {

@@ -32,6 +32,7 @@
   <div class="row">
     <div class="col-md-6 col-md-push-6">
       <ui-gmap-google-map
+        id="map"
         ng-if="map.show"
         center="map.center"
         zoom="map.zoom">
@@ -44,20 +45,59 @@
           fit="true"
           static="true"
           geodesic="true">
-        </ui-gmap-polylines>
+        </ui-gmap-polyline>
         <ui-gmap-markers
           models="map.markers"
           coords="'self'"
           options="'options'">
         </ui-gmap-markers>
       </ui-gmap-google-map>
-      <div ng-show="User.current()">
+      <div ng-show="User.current().id == user.id">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Add a Post</h3>
           </div>
           <div class="panel-body">
-          <!-- TODO -->
+          <!-- TODO add img for when image uploaded, add map and tie to location name, add share with fb toggle -->
+            <div class="form-group">
+              <label for="newPostText">Description</label>
+              <textarea id="newPostText" class="form-control" rows="3" placeholder="Description" ng-model="newPost.text"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="newPostRating">Rating</label>
+              <rating id="newPostRating" rating-value="newPost.rating" max="5"></rating>
+            </div>
+            <div class="form-group">
+              <label for="newPostImage">Photo</label>
+              <input type="file" id="newPostImage" ng-model="newPost.image">
+            </div>
+            <img ng-if="newPost.image" ng-model="newPost.image" style="width: 200px; height: 200px;">
+            <div class="form-group">
+              <label for="newPostLocationName">Location</label>
+              <input type="text" class="form-control" id="newPostLocationName" placeholder="Location" ng-model="newPost.locationName">
+            </div>
+            <ui-gmap-google-map
+              id="newPostMap"
+              ng-if="newPostMap.show"
+              center="newPostMap.center"
+              zoom="newPostMap.zoom">
+              <ui-gmap-search-box
+                template='searchbox.tpl.html'
+                events='newPostMap.searchBox.events'
+                parentDiv="'newPostLocationName'"
+                options='newPostMap.searchBox.options'>
+              </ui-gmap-search-box>
+              <ui-gmap-marker 
+                coords="newPostMap.marker.coords" 
+                options="newPostMap.marker.options"
+                idkey="newPostMap.marker.id">
+              </ui-gmap-marker>
+            </ui-gmap-google-map>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="newPost.shareOnFb"> Post to Facebook?
+              </label>
+            </div>
           </div>
         </div>
       </div>
