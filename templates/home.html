@@ -23,11 +23,14 @@
                     <li class="page-scroll">
                         <a href="#our-story">Our Story</a>
                     </li>
-                    <li ng-hide="User.current()">
-                        <a ui-sref="app.user({userId: 'i9RYC3rKAb'})">Joe's Path</a>
-                    </li>
+<!--                     <li ng-hide="User.current()">
+                        <a ui-sref="app.user({userId: 'i9RYC3rKAb'})">Joe's Paths</a>
+                    </li> -->
                     <li ng-show="User.current()">
-                        <a ui-sref="app.user({userId: User.current().id})" style="background-color: rgba(200,150,0,0.8);">My Path</a>
+                        <a ui-sref="app.user({userId: User.current().id})" style="background-color: rgba(200,150,0,0.8);">My Paths</a>
+                    </li>
+                    <li ng-hide="User.current()">
+                        <a ui-sref="app.path({pathId: '8VnLiUKmhq'})">Joe's Italy Path</a>
                     </li>
                     <li>
                         <a ng-href="#" ng-hide="User.current()" class="btn btn-block btn-social btn-facebook" ng-click="User.fbLogin()"><i class="fa fa-facebook"></i> Sign in</button>
@@ -77,7 +80,7 @@
                     <li>Post offline without an internet connection during the day while traveling and let the app sync your posts during the night using your accomodation's wifi</li>
                     <li>Need to organize the next trip or just looking where to go next while on a trip?  This app will help.</li>
                 </ul>
-                <h2>Take a look at a path:  <a ui-sref="app.user({userId: 'i9RYC3rKAb'})">See Joe's Path</a></h2>
+                <h2>Take a look at a path:  <a ui-sref="app.path({pathId: '8VnLiUKmhq'})">Joe's Italy Path</a></h2>
             </div>
         </div>
     </section>

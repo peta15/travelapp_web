@@ -2,9 +2,8 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
 
     .run(['$rootScope', '$window', 'User', '$log', function ($rootScope, $window, User, $log) {
 
-        // TODO set parse api key here
         Parse.initialize('dj2Rcjb9bvAmYWJvKLlDpj1WasLwn5mcum3yktCP','viset42LCn1piYJEFblISpZLmi2egYJZvy0AskEi');
-
+        User.enableRevocableSession();
         $rootScope.User = User;
 
         window.fbAsyncInit = function() {
@@ -44,7 +43,11 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
                 // TODO redirect to a path page centered on the post (and/or post highlighted in feed and map)
                 // where :idType = "post" and :id is the postId of the post
                 // if no post with postId found then redirect to user page
-                return "/user/" + $match.userId;
+                if ($match.idType == "post") {
+                    return /path/ + $match.id;
+                } else {
+                    return "/user/" + $match.userId;
+                }
             }])
             .when('/support', ['$match', '$stateParams', function ($match, $stateParams) {
                 return "/faq";
@@ -64,6 +67,11 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
             })
             .state('app.user', {
                 url: "/user/:userId",
+                templateUrl: "templates/user.html",
+                controller: "UserCtrl"
+            })
+            .state('app.path', {
+                url: "/path/:pathId",
                 templateUrl: "templates/path.html",
                 controller: "PathCtrl"
             })
@@ -85,7 +93,7 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
     }])
     .config(['uiGmapGoogleMapApiProvider', function (uiGmapGoogleMapApiProvider) {
         uiGmapGoogleMapApiProvider.configure({
-            //    key: 'your api key',
+            key: 'AIzaSyC00uu2O8qAoSN9yeN6Yb9qdpf3qiq8XNY',
             v: '3.19',
             libraries: 'weather,geometry,visualization'
         });

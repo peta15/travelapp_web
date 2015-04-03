@@ -81,8 +81,12 @@ angular.module('app.controllers', [])
 
     }])
 
-    .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'lodash', function ($scope, $log, Post, User, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, lodash) {
-        $scope.setBackgroundImage();
+    .controller('UserCtrl', ['$scope', '$log', 'Post', 'Path', 'User', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'lodash', function ($scope, $log, Post, Path, User, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, lodash) {
+        BACKGROUNDS = ["/img/guatemala.jpg", "/img/intro-bg.jpg"];
+        // Duration is the amount of time in between slides,
+        // and fade is value that determines how quickly the next image will fade in
+        var bg = BACKGROUNDS[Math.floor(Math.random()*BACKGROUNDS.length)]; // choose a random background image
+        $.backstretch(bg); // can rotate every few seconds - see http://srobbin.com/jquery-plugins/backstretch/
 
         var i = 0;
 
@@ -110,10 +114,15 @@ angular.module('app.controllers', [])
             return map_data;
         }
 
-        var user = User.getById($stateParams.userId).then(function(user) {
+        User.getById($stateParams.userId).then(function(user) {
             $scope.user = user;
+            Path.listByUser(user).then(function(paths) {
+                $scope.paths = paths;
+            }, function(error) {
+                // TODO handle paths error
+                $log.error(error);
+            });
             Post.listByUser(user).then(function(posts) {
-                $scope.posts = posts;
                 angular.extend(
                     $scope.map,
                     {
@@ -127,6 +136,85 @@ angular.module('app.controllers', [])
             });
         }, function(error) {
             // TODO handle user error
+            $log.error(error);
+        });
+
+        // google maps logic
+
+        uiGmapLogger.doLog = true;
+        $scope.map = {
+            center: { latitude: 0, longitude: 0 },
+            zoom: 8,
+            stroke: {
+                color: '#FF0000',
+                weight: 3,
+                opacity: 1
+            },
+            path: [],
+            markers: [],
+            show: false
+        };
+        // uiGmapGoogleMapApi is a promise.
+        // The "then" callback function provides the google.maps object.
+        uiGmapGoogleMapApi.then(function(maps) {
+
+        });
+
+    }])
+
+    .controller('PathCtrl', ['$scope', '$log', 'Post', 'Path', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'lodash', function ($scope, $log, Post, Path, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, lodash) {
+        BACKGROUNDS = ["/img/guatemala.jpg", "/img/intro-bg.jpg"];
+        // Duration is the amount of time in between slides,
+        // and fade is value that determines how quickly the next image will fade in
+        var bg = BACKGROUNDS[Math.floor(Math.random()*BACKGROUNDS.length)]; // choose a random background image
+        $.backstretch(bg); // can rotate every few seconds - see http://srobbin.com/jquery-plugins/backstretch/
+
+        var i = 0;
+
+        var check_null_location = function(post) {
+            if (post.location != null) {
+                return post;
+            } else {
+                return null;
+            }
+        }
+
+        var compile_map_data = function(post) {
+            var map_data = {
+                id: i++, 
+                latitude: post.location.latitude, 
+                longitude: post.location.longitude
+            };
+            if (post.locationName != null) {
+                map_data['options'] = {
+                    labelContent: post.locationName,
+                    labelAnchor: "22 0", 
+                    labelClass: "marker-labels"
+                };
+            }
+            return map_data;
+        }
+
+        Path.getById($stateParams.pathId).then(function(path) {
+            path.creator.then(function(creator) {
+                $scope.user = creator;
+            });
+            $scope.path = path;
+            Post.listByPath(path).then(function(posts) {
+                $scope.posts = posts;
+                angular.extend(
+                    $scope.map,
+                    {
+                        path: lodash.chain(posts).pluck('location').filter(function(location){ return location != null && location.latitude != 0.0 && location.longitude != 0.0 }).map(function(location) { return {latitude: location.latitude, longitude: location.longitude}; }).valueOf(),
+                        markers: lodash.chain(posts).map(check_null_location).compact().map(compile_map_data).valueOf(),
+                        show: lodash.any(posts, 'location')
+                    }); 
+            }, function(error) {
+                // TODO handle posts error
+                $log.error(error);
+            });
+        }, function(error) {
+            // TODO handle path error
             $log.error(error);
         });
 

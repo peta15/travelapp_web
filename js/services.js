@@ -28,6 +28,7 @@ angular.module('app.services', [])
       },
 
       enrichCurrentUser: function() {
+        // enrich current user with FB data
         var self = User;
         FB.getLoginStatus(function(loginResponse) {
           $log.debug('loginResponse: ');
@@ -94,6 +95,12 @@ angular.module('app.services', [])
       }
     });
 
+    Object.defineProperty(User.prototype, "objectId", {
+      get: function() {
+        return this.get("objectId");
+      }
+    });
+
     Object.defineProperty(User.prototype, "name", {
       get: function() {
         return this.get("name");
@@ -138,6 +145,107 @@ angular.module('app.services', [])
 
     return User;
 }])
+.factory('Path', ['User', 'globals', '$q', function(User, globals, $q) {
+
+  var Path = Parse.Object.extend("Path", {
+      // Instance methods
+    }, {
+      // Class methods
+      getById: function(id) {
+        var defer = $q.defer();
+ 
+        var query = new Parse.Query(this);
+        query.get(id, {
+          success : function(path) {
+            defer.resolve(path);
+          },
+          error : function(error) {
+            defer.reject(error);
+          }
+        });
+ 
+        return defer.promise;
+      },
+
+      listByUser : function(user) {
+        var defer = $q.defer();
+
+        var query = new Parse.Query(this);
+        query.equalTo("creator", user);
+        query.descending("userCreatedAt");
+        query.find({
+          success : function(paths) {
+            defer.resolve(paths);
+          },
+          error : function(error) {
+            defer.reject(error);
+          }
+        });
+
+        return defer.promise;
+      }
+    });
+
+    Object.defineProperty(Path.prototype, "objectId", {
+      get: function() {
+        return this.get("objectId");
+      }
+    });
+
+    Object.defineProperty(Path.prototype, "name", {
+      get: function() {
+        return this.get("name");
+      },
+      set: function(aValue) {
+        this.set("name", aValue);
+      }
+    });
+
+    Object.defineProperty(Path.prototype, "userUpdatedAt", {
+      get: function() {
+        return this.get("userUpdatedAt");
+      },
+      set: function(aValue) {
+        this.set("userUpdatedAt", aValue);
+      }
+    });
+
+    Object.defineProperty(Path.prototype, "userCreatedAt", {
+      get: function() {
+        return this.get("userCreatedAt");
+      },
+      set: function(aValue) {
+        this.set("userCreatedAt", aValue);
+      }
+    });
+
+    // Object.defineProperty(Path.prototype, "experienceType", {
+    //   get: function() {
+    //     return this.get("experienceType");
+    //   },
+    //   set: function(aValue) {
+    //     this.set("experienceType", aValue);
+    //   }
+    // });
+
+    Object.defineProperty(Path.prototype, "creator", {
+      get: function() {
+        var defer = $q.defer();
+        this.get("creator").fetch({
+          success : function(user) {
+            defer.resolve(user);
+          },
+          error : function(error) {
+            defer.reject(error);
+          }
+        });
+        return defer.promise;
+      }
+    });
+
+    return Path;
+
+}])
 .factory('Post', ['User', 'globals', '$q', function(User, globals, $q) {
 
   var Post = Parse.Object.extend("Post", {
@@ -160,6 +268,30 @@ angular.module('app.services', [])
         });
 
         return defer.promise;
+      },
+
+      listByPath : function(path) {
+        var defer = $q.defer();
+
+        var query = new Parse.Query(this);
+        query.equalTo("path", path);
+        query.descending("userCreatedAt");
+        query.find({
+          success : function(posts) {
+            defer.resolve(posts);
+          },
+          error : function(error) {
+            defer.reject(error);
+          }
+        });
+
+        return defer.promise;
+      }
+    });
+
+    Object.defineProperty(Post.prototype, "objectId", {
+      get: function() {
+        return this.get("objectId");
       }
     });
 
@@ -219,6 +351,15 @@ angular.module('app.services', [])
         } else {
           return false;
         }
+      }
+    });
+
+    Object.defineProperty(Post.prototype, "author", {
+      get: function() {
+        return this.get("author");
+      },
+      set: function(aValue) {
+        this.set("author", aValue);
       }
     });
 

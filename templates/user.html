@@ -25,10 +25,7 @@
         <div class="pull-left">
           <img ng-src="{{user.fbProfileImage('normal')}}" alt="{{user.name}} profile image" class="img-thumbnail" style="margin-right: 20px; margin-bottom: 20px; width: 100px; height: 75px;">
         </div>
-        <div>
-          <h2 style="margin-bottom: 20px;">{{path.name}}</h2>
-          <i>{{"by " + user.name}}</i>
-        </div>
+        <h2>{{user.name + " Paths"}}</h2>
       </div>
     </div>
   </div>
@@ -56,15 +53,13 @@
       </ui-gmap-google-map>
     </div>
     <div class="col-md-6 col-md-pull-6">
-      <div class="panel panel-default" ng-repeat="post in posts">
+      <div class="panel panel-default" ng-repeat="path in paths">
         <div class="panel-heading">
-          <h3 class="panel-title">{{post.locationName}}</h3>
-          <span>{{timeSince(post.userCreatedAt)}}</span>
-          <!-- <rating ng-show="post.rating > 0" rating-value="post.rating" max="5" readonly="true"></rating> -->
+          <h3 class="panel-title">{{path.name}}</h3>
+          <span>{{timeSince(path.userCreatedAt)}}</span>
         </div>
         <div class="panel-body">
-          <img ng-if="post.hasImage640" ng-src="{{post.image640}}" alt="post image" class="img-rounded" style="width: 100%">
-          <p>{{post.text}}</p>
+          <a ui-sref="app.path({pathId: path.id})">View this path<a>
         </div>
       </div>
     </div>
