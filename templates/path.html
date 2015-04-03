@@ -57,7 +57,7 @@
         <div class="panel-heading">
           <h3 class="panel-title">{{post.locationName}}</h3>
           <span>{{timeSince(post.userCreatedAt)}}</span>
-          <rating ng-show="post.rating > 0" rating-value="post.rating" max="5" readonly="true"></rating>
+          <!-- <rating ng-show="post.rating > 0" rating-value="post.rating" max="5" readonly="true"></rating> -->
         </div>
         <div class="panel-body">
           <img ng-if="post.hasImage640" ng-src="{{post.image640}}" alt="post image" class="img-rounded" style="width: 100%">
