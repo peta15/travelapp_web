@@ -48,6 +48,14 @@ angular.module('app.controllers', [])
             return interval + ' ' + intervalType + ' ago';
         };
 
+        $scope.setBackgroundImage = function(){
+            BACKGROUNDS = ["/img/guatemala.jpg", "/img/intro-bg.jpg"];
+            // Duration is the amount of time in between slides,
+            // and fade is value that determines how quickly the next image will fade in
+            var bg = BACKGROUNDS[Math.floor(Math.random()*BACKGROUNDS.length)]; // choose a random background image
+            $.backstretch(bg); // can rotate every few seconds - see http://srobbin.com/jquery-plugins/backstretch/
+        };
+
     }])
 
     .controller('HomeCtrl', ['$scope', 'globals', 'User', function ($scope, globals, User) {
@@ -74,11 +82,7 @@ angular.module('app.controllers', [])
     }])
 
     .controller('PathCtrl', ['$scope', '$log', 'Post', 'User', 'globals', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'lodash', function ($scope, $log, Post, User, globals, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, lodash) {
-        BACKGROUNDS = ["/img/guatemala.jpg", "/img/intro-bg.jpg"];
-        // Duration is the amount of time in between slides,
-        // and fade is value that determines how quickly the next image will fade in
-        var bg = BACKGROUNDS[Math.floor(Math.random()*BACKGROUNDS.length)]; // choose a random background image
-        $.backstretch(bg); // can rotate every few seconds - see http://srobbin.com/jquery-plugins/backstretch/
+        $scope.setBackgroundImage();
 
         var i = 0;
 
@@ -147,4 +151,8 @@ angular.module('app.controllers', [])
 
         });
 
+    }])
+
+    .controller('SiteCtrl', ['$scope', 'globals', 'User', function ($scope, globals, User) {
+        $scope.setBackgroundImage();
     }]);

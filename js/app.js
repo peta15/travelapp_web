@@ -46,6 +46,9 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
                 // if no post with postId found then redirect to user page
                 return "/user/" + $match.userId;
             }])
+            .when('/support', ['$match', '$stateParams', function ($match, $stateParams) {
+                return "/faq";
+            }])
             .otherwise('/');
 
         $stateProvider
@@ -63,6 +66,21 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
                 url: "/user/:userId",
                 templateUrl: "templates/path.html",
                 controller: "PathCtrl"
+            })
+            .state('app.privacy', {
+                url: "/privacy",
+                templateUrl: "templates/privacy.html",
+                controller: "SiteCtrl"
+            })
+            .state('app.faq', {
+                url: "/faq",
+                templateUrl: "templates/faq.html",
+                controller: "SiteCtrl"
+            })            
+            .state('app.terms', {
+                url: "/terms",
+                templateUrl: "templates/terms.html",
+                controller: "SiteCtrl"
             });
     }])
     .config(['uiGmapGoogleMapApiProvider', function (uiGmapGoogleMapApiProvider) {

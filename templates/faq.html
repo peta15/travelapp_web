@@ -1,0 +1,47 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" ui-sref="app.home">
+        Hop a Path
+      </a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="navbar-right">
+        <ul class="nav navbar-nav">
+            <li>
+                <a ng-href="#" ng-hide="User.current()" class="btn btn-block btn-social btn-facebook" ng-click="User.fbLogin()"><i class="fa fa-facebook"></i> Sign in</button>
+                <a ng-show="User.current()" ng-href="#" ng-click="User.logOut()">Sign Out</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+</nav>
+
+<div class="container faq">
+  <div class="row">
+
+    <div class="well">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">I want to get in touch or chat about an idea or issue</h3>
+      </div>
+      <div class="panel-body">
+        Send us an email: hopapath@gmail.com
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Where did the need for Hop a Path come from?</h3>
+      </div>
+      <div class="panel-body">
+        In March of 2014 I backpacked through Belize and Guatemala and met a lot of amazing people.  I had my trusty guide book to help me find places to visit and facebook to keep in touch but I was frustrated because neither of these could tell me how to find and travel with fellow backpackers.  Having a deep love of travel and technology I was shocked that we still live in an age of static guide books and no app dedicated to connecting travellers, analyzing travel routes, and sharing things to do in real time. I have set out to create an app to help guide backpackers and travellers through the best paths for their travels: Hop a Path. &nbsp;&nbsp;&nbsp;~ Jesse
+      </div>
+    </div>
+
+  </div>
+</div>
