@@ -8,7 +8,7 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
 
         window.fbAsyncInit = function() {
             Parse.FacebookUtils.init({ // this line replaces FB.init({
-              appId      : EnvironmentConfig.FacebookAppId, // Facebook App ID
+              appId      : EnvironmentConfig.facebookAppId, // Facebook App ID
               status     : true,  // check Facebook Login status
               cookie     : true,  // enable cookies to allow Parse to access the session
               xfbml      : true,  // initialize Facebook social plugins on the page
