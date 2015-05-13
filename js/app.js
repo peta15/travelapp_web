@@ -1,14 +1,14 @@
-angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.controllers', 'app.services', 'app.directives'])
+angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.controllers', 'app.services', 'app.directives', 'app.config'])
 
-    .run(['$rootScope', '$window', 'User', '$log', function ($rootScope, $window, User, $log) {
+    .run(['$rootScope', '$window', 'User', '$log', 'EnvironmentConfig', function ($rootScope, $window, User, $log, EnvironmentConfig) {
 
-        Parse.initialize('dj2Rcjb9bvAmYWJvKLlDpj1WasLwn5mcum3yktCP','viset42LCn1piYJEFblISpZLmi2egYJZvy0AskEi');
+        Parse.initialize(EnvironmentConfig.parseAppId, EnvironmentConfig.parseJSKey);
         User.enableRevocableSession();
         $rootScope.User = User;
 
         window.fbAsyncInit = function() {
             Parse.FacebookUtils.init({ // this line replaces FB.init({
-              appId      : '1494625380826955', // Facebook App ID
+              appId      : EnvironmentConfig.FacebookAppId, // Facebook App ID
               status     : true,  // check Facebook Login status
               cookie     : true,  // enable cookies to allow Parse to access the session
               xfbml      : true,  // initialize Facebook social plugins on the page

@@ -6,6 +6,8 @@ var rename = require('gulp-rename');
 var path = require('path');
 var uglify = require('gulp-uglify');
 var gulpBowerFiles = require('gulp-bower-files');
+var args = require('yargs').argv;
+var gulpNgConfig = require('gulp-ng-config');
 
 var paths = {
   less: ['./less/**/*.less']
@@ -36,6 +38,16 @@ gulp.task('uglify', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.less, ['less']);
+});
+
+// usage: gulp config --env production
+gulp.task('config', function () {
+  // Get the environment from the command line
+  var env = args.env || 'dev';
+  gulp.src('config.json')
+  .pipe(gulpNgConfig('app.config', {
+    environment: env
+  })).pipe(gulp.dest('./js/'))
 });
 
 gulp.task('default', ['less']);

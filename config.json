@@ -1,0 +1,16 @@
+{
+  "dev": {
+    "EnvironmentConfig": {
+      "parseAppId": "inSiSY39PfLi5Xng8JISuljmI8zFgSpDmVdU84ie",
+      "parseJSKey": "v90HaMLrYeOjUdAh11hLzNNJ2SvvW2h3ShUTKdpN",
+      "FacebookAppId": "1494625380826955"
+    }
+  },
+  "production": {
+    "EnvironmentConfig": {
+      "parseAppId": "dj2Rcjb9bvAmYWJvKLlDpj1WasLwn5mcum3yktCP",
+      "parseJSKey": "viset42LCn1piYJEFblISpZLmi2egYJZvy0AskEi",
+      "FacebookAppId": "1564986840457475"
+    }
+  }
+}
