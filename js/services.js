@@ -155,12 +155,16 @@ angular.module('app.services', [])
         var defer = $q.defer();
  
         var query = new Parse.Query(this);
+        var query2 = new Parse.Query(this);
         query.get(id, {
           success : function(path) {
             defer.resolve(path);
           },
           error : function(error) {
-            defer.reject(error);
+            query2.equalTo("pathId", id);
+            query2.first().then(function(result) {
+              defer.resolve(result);
+            });
           }
         });
  
