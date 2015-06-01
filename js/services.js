@@ -95,11 +95,7 @@ angular.module('app.services', [])
       }
     });
 
-    Object.defineProperty(User.prototype, "objectId", {
-      get: function() {
-        return this.get("objectId");
-      }
-    });
+    // get objectId with .id
 
     Object.defineProperty(User.prototype, "name", {
       get: function() {
@@ -190,11 +186,7 @@ angular.module('app.services', [])
       }
     });
 
-    Object.defineProperty(Path.prototype, "objectId", {
-      get: function() {
-        return this.get("objectId");
-      }
-    });
+    // get objectId with .id
 
     Object.defineProperty(Path.prototype, "name", {
       get: function() {
@@ -293,11 +285,7 @@ angular.module('app.services', [])
       }
     });
 
-    Object.defineProperty(Post.prototype, "objectId", {
-      get: function() {
-        return this.get("objectId");
-      }
-    });
+    // get objectId with .id
 
     Object.defineProperty(Post.prototype, "text", {
       get: function() {

@@ -40,7 +40,7 @@ p {
   }
 }
 a {
-  color: #28c3ab;
+  color: #2bccd3;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
@@ -48,7 +48,7 @@ a {
 a:hover,
 a:focus {
   text-decoration: none;
-  color: #176e61;
+  color: #1a7a7e;
 }
 .light {
   font-weight: 400;
@@ -108,6 +108,20 @@ a:focus {
   .navbar-home.top-nav-collapse {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
+}
+img.bunny-logo {
+  float: left;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 50px;
+  height: 50px;
+}
+.app-store-nav {
+  padding-bottom: 4px !important;
+  padding-top: 4px !important;
+}
+.app-store-nav :first-child {
+  height: 42px;
 }
 .intro {
   display: table;
@@ -195,6 +209,12 @@ img.hero {
   width: 100%;
   height: 300px;
 }
+img.profile {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: 100px;
+  height: 75px;
+}
 .our-story-section {
   padding: 30px 0;
   background-color: #ffffff;
@@ -231,16 +251,16 @@ img.hero {
   transition: all 0.3s ease-in-out;
 }
 .btn-default {
-  border: 1px solid #28c3ab;
-  color: #28c3ab;
+  border: 1px solid #2bccd3;
+  color: #2bccd3;
   background-color: transparent;
 }
 .btn-default:hover,
 .btn-default:focus {
-  border: 1px solid #28c3ab;
+  border: 1px solid #2bccd3;
   outline: none;
   color: #000000;
-  background-color: #28c3ab;
+  background-color: #2bccd3;
 }
 .btn-huge {
   padding: 25px;
@@ -248,6 +268,16 @@ img.hero {
 }
 .banner-social-buttons {
   margin-top: 0;
+}
+.btn-social-nav {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  color: white !important;
+}
+.btn-social :first-child {
+  line-height: 40px !important;
 }
 @media (max-width: 1199px) {
   ul.banner-social-buttons {

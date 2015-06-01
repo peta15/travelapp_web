@@ -1,18 +1,30 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" ui-sref="app.home">
-        Hop a Path
-      </a>
+      <ul class="nav navbar-nav">
+        <li>
+          <a ui-sref="app.home" style="padding-top: 0px; padding-bottom: 0px">
+            <img src="img/hopapath-bunny-logo-50.png" class="bunny-logo">
+          </a>
+        </li>
+        <li>
+          <a class="navbar-brand" ui-sref="app.home">
+            Hop a Path
+          </a>
+        </li>
+      </ul>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="navbar-right">
-        <ul class="nav navbar-nav">
-            <li>
-                <a ng-href="#" ng-hide="User.current()" class="btn btn-block btn-social btn-facebook" ng-click="User.fbLogin()"><i class="fa fa-facebook"></i> Sign in</button>
-                <a ng-show="User.current()" ng-href="#" ng-click="User.logOut()">Sign Out</a>
-            </li>
-        </ul>
+    <div class="navbar-right" style="margin-right: 15px">
+      <ul class="nav navbar-nav">
+        <li>
+          <a class="app-store-nav" href="https://itunes.apple.com/us/app/hop-a-path/id961454075?ls=1&mt=8"><img src="img/iphone-download-badge-122-42.png"></a>
+        </li>
+        <li>
+          <a ng-href="#" ng-hide="User.current()" class="btn btn-block btn-social btn-facebook btn-social-nav" ng-click="User.fbLogin()"><i class="fa fa-facebook"></i> Sign in</a>
+          <a ng-show="User.current()" ng-href="#" ng-click="User.logOut()"><button>Sign Out</button></a>
+        </li>
+      </ul>
     </div>
     <!-- /.navbar-collapse -->
   </div>
@@ -23,11 +35,13 @@
     <div class="col-md-12">
       <div class="well">
         <div class="pull-left">
-          <img ng-src="{{user.fbProfileImage('normal')}}" alt="{{user.name}} profile image" class="img-thumbnail" style="margin-right: 20px; margin-bottom: 20px; width: 100px; height: 75px;">
+          <a ui-sref="app.user({userId: user.id})">
+            <img ng-src="{{user.fbProfileImage('normal')}}" alt="{{user.name}} profile image" class="img-thumbnail profile">
+          </a>
         </div>
         <div>
           <h2 style="margin-bottom: 20px;">{{path.name}}</h2>
-          <i>{{"by " + user.name}}</i>
+          <h4 style="margin-bottom: 0px;"><a ui-sref="app.user({userId: user.id})">{{"by " + user.name}}</a></h4>
         </div>
       </div>
     </div>
@@ -35,38 +49,41 @@
   <div class="row">
     <div class="col-md-6 col-md-push-6">
       <ui-gmap-google-map
-        ng-if="map.show"
-        center="map.center"
-        zoom="map.zoom">
-        <ui-gmap-polyline
-          path="map.path"
-          stroke="map.stroke"
-          clickable="false"
-          draggable="false"
-          editable="false"
-          fit="true"
-          static="true"
-          geodesic="true">
-        </ui-gmap-polylines>
-        <ui-gmap-markers
-          models="map.markers"
-          coords="'self'"
-          options="'options'">
-        </ui-gmap-markers>
-      </ui-gmap-google-map>
+      ng-if="map.show"
+      center="map.center"
+      zoom="map.zoom">
+      <ui-gmap-polyline
+      path="map.path"
+      stroke="map.stroke"
+      clickable="false"
+      draggable="false"
+      editable="false"
+      fit="true"
+      static="true"
+      geodesic="true">
+    </ui-gmap-polylines>
+    <ui-gmap-markers
+    models="map.markers"
+    coords="'self'"
+    options="'options'">
+  </ui-gmap-markers>
+</ui-gmap-google-map>
+</div>
+<div class="col-md-6 col-md-pull-6">
+  <div class="panel panel-default" ng-repeat="post in posts">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{post.locationName}}</h3>
+      <span>{{timeSince(post.userCreatedAt)}}</span>
+      <!-- <rating ng-show="post.rating > 0" rating-value="post.rating" max="5" readonly="true"></rating> -->
     </div>
-    <div class="col-md-6 col-md-pull-6">
-      <div class="panel panel-default" ng-repeat="post in posts">
-        <div class="panel-heading">
-          <h3 class="panel-title">{{post.locationName}}</h3>
-          <span>{{timeSince(post.userCreatedAt)}}</span>
-          <!-- <rating ng-show="post.rating > 0" rating-value="post.rating" max="5" readonly="true"></rating> -->
-        </div>
-        <div class="panel-body">
-          <img ng-if="post.hasImage640" ng-src="{{post.image640}}" alt="post image" class="img-rounded" style="width: 100%">
-          <p>{{post.text}}</p>
-        </div>
-      </div>
+    <div class="panel-body">
+      <img ng-if="post.hasImage640" ng-src="{{post.image640}}" alt="post image" class="img-rounded" style="width: 100%">
+      <p>{{post.text}}</p>
     </div>
   </div>
+  <div class="well" ng-hide="posts.length">
+    <h4>No posts yet!  Hopefully {{user.name}} will add some soon via <a href="https://itunes.apple.com/us/app/hop-a-path/id961454075?ls=1&mt=8">the Hop a Path app</a></h4>
+  </div>
+</div>
+</div>
 </div>
