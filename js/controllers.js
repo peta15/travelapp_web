@@ -104,13 +104,13 @@ angular.module('app.controllers', [])
                 latitude: post.location.latitude, 
                 longitude: post.location.longitude
             };
-            if (post.locationName != null) {
-                map_data['options'] = {
-                    labelContent: post.locationName,
-                    labelAnchor: "22 0", 
-                    labelClass: "marker-labels"
-                };
-            }
+            // if (post.locationName != null) {
+            //     map_data['options'] = {
+            //         labelContent: post.locationName,
+            //         labelAnchor: "22 0", 
+            //         labelClass: "marker-labels"
+            //     };
+            // }
             return map_data;
         }
 
@@ -185,13 +185,13 @@ angular.module('app.controllers', [])
                 latitude: post.location.latitude, 
                 longitude: post.location.longitude
             };
-            if (post.locationName != null) {
-                map_data['options'] = {
-                    labelContent: post.locationName,
-                    labelAnchor: "22 0", 
-                    labelClass: "marker-labels"
-                };
-            }
+            // if (post.locationName != null) {
+            //     map_data['options'] = {
+            //         labelContent: post.locationName,
+            //         labelAnchor: "22 0", 
+            //         labelClass: "marker-labels"
+            //     };
+            // }
             return map_data;
         }
 
