@@ -1,6 +1,6 @@
 angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.controllers', 'app.services', 'app.directives', 'app.config'])
 
-    .run(['$rootScope', '$window', 'User', '$log', 'EnvironmentConfig', function ($rootScope, $window, User, $log, EnvironmentConfig) {
+    .run(['$rootScope', '$window', 'User', '$log', 'EnvironmentConfig', '$location', function ($rootScope, $window, User, $log, EnvironmentConfig, $location) {
 
         Parse.initialize(EnvironmentConfig.parseAppId, EnvironmentConfig.parseJSKey);
         User.enableRevocableSession();
@@ -26,6 +26,16 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
           }(document, 'script', 'facebook-jssdk'));
+
+        //Optimizely: Activate experiments when the page first loads
+        window["optimizely"] = window["optimizely"] || [];
+        window["optimizely"].push(["activate"]);
+
+        //Optimizely: Activate experiments when the URL changes without a page reload
+        $rootScope.$on(['locationChangeSuccess', function() {
+            window["optimizely"].push(["activate"]);
+        }]);
+
     }])
     .value('globals', function(){
         var globals = {
