@@ -77,7 +77,7 @@
       <!-- <rating ng-show="post.rating > 0" rating-value="post.rating" max="5" readonly="true"></rating> -->
     </div>
     <div class="panel-body">
-      <img ng-if="post.hasImage640" ng-src="{{post.image640}}" alt="post image" class="img-rounded" style="width: 100%">
+      <img ng-if="post.hasPhoto" ng-src="{{post.photo.get('file640').url()}}" alt="a beautiful image should be here" class="img-rounded" style="width: 100%">
       <p>{{post.text}}</p>
     </div>
   </div>

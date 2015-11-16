@@ -271,6 +271,7 @@ angular.module('app.services', [])
 
         var query = new Parse.Query(this);
         query.equalTo("path", path);
+        query.include("photo");
         query.descending("userCreatedAt");
         query.find({
           success : function(posts) {
@@ -324,9 +325,12 @@ angular.module('app.services', [])
       }
     });
 
-    Object.defineProperty(Post.prototype, "image640", {
+    Object.defineProperty(Post.prototype, "photo", {
       get: function() {
-        return this.get("image640").url();
+        return this.get("photo");
+      },
+      set: function(aValue) {
+        this.set("photo", aValue);
       }
     });
 
@@ -336,9 +340,9 @@ angular.module('app.services', [])
       }
     });
 
-    Object.defineProperty(Post.prototype, "hasImage640", {
+    Object.defineProperty(Post.prototype, "hasPhoto", {
       get: function() {
-        if (this.get("image640")) {
+        if (this.get("photo")) {
           return true;
         } else {
           return false;
@@ -355,6 +359,108 @@ angular.module('app.services', [])
       }
     });
 
+    Object.defineProperty(Post.prototype, "path", {
+      get: function() {
+        return this.get("path");
+      },
+      set: function(aValue) {
+        this.set("path", aValue);
+      }
+    });
+
     return Post;
+
+}])
+.factory('Photo', [function() {
+
+  var Photo = Parse.Object.extend("Photo", {
+      // Instance methods
+    }, {
+      // Class methods
+    });
+
+    // get objectId with .id
+
+    Object.defineProperty(Photo.prototype, "file1280", {
+      get: function() {
+        return this.get("file1280").url();
+      }
+    });
+
+    Object.defineProperty(Photo.prototype, "width1280", {
+      get: function() {
+        return this.get("width1280");
+      },
+      set: function(aValue) {
+        this.set("width1280", aValue);
+      }
+    });
+
+    Object.defineProperty(Photo.prototype, "height1280", {
+      get: function() {
+        return this.get("height1280");
+      },
+      set: function(aValue) {
+        this.set("height1280", aValue);
+      }
+    });
+
+    Object.defineProperty(Photo.prototype, "file640", {
+      get: function() {
+        return this.get("file640").url();
+      }
+    });
+
+    Object.defineProperty(Photo.prototype, "width640", {
+      get: function() {
+        return this.get("width640");
+      },
+      set: function(aValue) {
+        this.set("width640", aValue);
+      }
+    });
+
+    Object.defineProperty(Photo.prototype, "userCreatedAt", {
+      get: function() {
+        return this.get("userCreatedAt");
+      }
+    });
+
+    Object.defineProperty(Photo.prototype, "userUpdatedAt", {
+      get: function() {
+        return this.get("userUpdatedAt");
+      }
+    });
+
+    Object.defineProperty(Photo.prototype, "hasFile1280", {
+      get: function() {
+        if (this.get("file1280")) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    });
+
+    Object.defineProperty(Photo.prototype, "hasFile640", {
+      get: function() {
+        if (this.get("file640")) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    });
+
+    Object.defineProperty(Photo.prototype, "deleted", {
+      get: function() {
+        return this.get("deleted");
+      },
+      set: function(aValue) {
+        this.set("deleted", aValue);
+      }
+    });
+
+    return Photo;
 
 }]);
