@@ -1,16 +1,16 @@
 {
   "dev": {
     "EnvironmentConfig": {
-      "parseAppId": "juccdQyesuw8iCeWbTJwpFUjhvyXiRQjDP3XSI50",
-      "parseJSKey": "D2fyzAyLRNn44OKKz8BHuYx4sNei7hMQvepoy5H6",
-      "facebookAppId": "1564986840457475"
+      "parseAppId": "dj2Rcjb9bvAmYWJvKLlDpj1WasLwn5mcum3yktCP",
+      "facebookAppId": "1564986840457475",
+      "serverURL": "http://localhost:1337/parse"
     }
   },
   "production": {
     "EnvironmentConfig": {
       "parseAppId": "dj2Rcjb9bvAmYWJvKLlDpj1WasLwn5mcum3yktCP",
-      "parseJSKey": "viset42LCn1piYJEFblISpZLmi2egYJZvy0AskEi",
-      "facebookAppId": "1494625380826955"
+      "facebookAppId": "1494625380826955",
+      "serverURL": "http://hopapath.m5dxiziq2h.us-east-1.elasticbeanstalk.com/parse"
     }
   }
 }

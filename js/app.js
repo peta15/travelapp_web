@@ -2,7 +2,8 @@ angular.module('app', ['ui.router', 'uiGmapgoogle-maps', 'ngLodash', 'app.contro
 
     .run(['$rootScope', '$window', 'User', '$log', 'EnvironmentConfig', '$location', function ($rootScope, $window, User, $log, EnvironmentConfig, $location) {
 
-        Parse.initialize(EnvironmentConfig.parseAppId, EnvironmentConfig.parseJSKey);
+        Parse.initialize(EnvironmentConfig.parseAppId);
+        Parse.serverURL = EnvironmentConfig.serverURL;
         User.enableRevocableSession();
         $rootScope.User = User;
 
